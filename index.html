@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <title>Hello World!</title>
+    <script>
+        window.playerSlots = window.playerSlots || [];
+        // window.playerCdn = "//s1.v-player.net/scripts3/player/";
+        // window.playerCdn = "//s1.v-player.net/scripts3/player/integration/";
+        window.playerCdn = "https://s1.v-player.net/player/next/";
+        // window.playerCdn = "../../dist/";
+        // window.playerCdn = "//s1.v-player.net/player/experimental/";
+        if (!window.BPlayer) {
+            var bp = document.createElement("script");
+            bp.type = "text/javascript";
+            bp.async = true;
+            bp.src = window.playerCdn + "html5player.js";
+            document.head.appendChild(bp);
+        }
+    </script>
+    <style>
+        body {
+            background: rgb(251, 171, 103);
+        }
+
+        video {
+            position: relative;
+            width: 640px;
+
+        }
+
+        .quality-controls {
+            position: relative;
+            display: inline-block;
+            margin: 5px;
+            background: orange;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            max-width: 640px;
+            min-width: 300px;
+            margin: 0 auto;
+            height: auto;
+            padding: 5px;
+        }
+
+        .text-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            font-size: 12px;
+            background: grey;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .text-container.bottom {
+            height: 2500px;
+        }
+
+        .player-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            /*padding-top: 56%;*/
+        }
+
+        /* used only for expand container element*/
+
+        .player-container::after {
+            position: absolute;
+            content: "";
+            display: block;
+            padding-top: 56%;
+            width: 100%;
+            top: 0;
+            z-index: -1;
+        }
+
+        .companion-container {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: auto;
+            max-width: 400px;
+            height: auto;
+            max-height: 800px;
+            transform: translateY(-50%);
+        }
+
+        .companions {
+            position: relative;
+        }
+
+        #companion-1 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Hello World!</h1>
+We are using Node.js <span id="node-version"></span>,
+Chromium <span id="chrome-version"></span>,
+and Electron <span id="electron-version"></span>.
+<div class="container">
+    <div class="text-container top"></div>
+    <div id="player" class="player-container"></div>
+    <div class="text-container bottom"></div>
+</div>
+</div>
+<script>
+
+    playerSlots.push(function () {
+        var player = new BPlayer(document.getElementById("player"), "test-test-oid");
+        player.setSource(
+            [
+                {
+                    src: "https://s1.v-player.net/supportdir/aTestBanners/test/bigbunny.mp4",
+                    type: "video/mp4",
+                },
+            ]
+        )
+            .setConfig({
+                autoplay: true,
+            })
+
+            .show();
+        // setTimeout(()=>{
+        //     console.log("run add");
+        //     player.showAd("pre1");
+        // },3000)
+    });
+</script>
+</body>
+</html>
